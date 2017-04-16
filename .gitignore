@@ -1,0 +1,6 @@
+.idea/
+nohup.out
+*checkpoint*
+*.pyc
+tbpid
+venv/*
