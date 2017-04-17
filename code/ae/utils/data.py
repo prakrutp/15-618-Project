@@ -70,7 +70,6 @@ def extract_labels(filename, one_hot=False):
       return dense_to_one_hot(labels)
     return labels
 
-
 class DataSet(object):
 
   def __init__(self, images, labels, fake_data=False):
@@ -240,8 +239,6 @@ def read_data_sets_pretraining(train_dir):
 
   validation_images = train_images[:VALIDATION_SIZE]
   train_images = train_images[VALIDATION_SIZE:]
-  validation_images = train_images[:100]
-  train_images = train_images[100:200]
 
   data_sets.train = DataSetPreTraining(train_images)
   data_sets.validation = DataSetPreTraining(validation_images)

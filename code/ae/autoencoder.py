@@ -128,7 +128,7 @@ class AutoEncoder(object):
     This method aides in the initialization of variables
     before training begins at step n. The returned
     list should be than used as the input to
-    tf.initialize_variables
+    tf.variables_initializer
 
     Args:
       n: int giving step of training
@@ -278,7 +278,6 @@ def main_unsupervised():
 
     data = read_data_sets_pretraining(FLAGS.data_dir)
     num_train = data.train.num_examples
-    num_train = 100
 
     learning_rates = {j: getattr(FLAGS,
                                  "pre_layer{0}_learning_rate".format(j + 1))
@@ -317,13 +316,13 @@ def main_unsupervised():
 
         vars_to_init = ae.get_variables_to_init(n)
         vars_to_init.append(global_step)
-        sess.run(tf.initialize_variables(vars_to_init))
+        sess.run(tf.variables_initializer(vars_to_init))
 
         print("\n\n")
         print("| Training Step | Cross Entropy |  Layer  |   Epoch  |")
         print("|---------------|---------------|---------|----------|")
 
-        for step in xrange(FLAGS.pretraining_epochs * num_train):
+        for step in xrange(int(num_train / FLAGS.batch_size)):
           feed_dict = fill_feed_dict_ae(data.train, input_, target_, noise[i])
 
           loss_summary, loss_value = sess.run([train_op, loss],
@@ -360,7 +359,7 @@ def main_unsupervised():
         filters = np.expand_dims(np.expand_dims(filters, 0), 3)
         image_var = tf.Variable(filters)
         image_filter = tf.identity(image_var)
-        sess.run(tf.initialize_variables([image_var]))
+        sess.run(tf.variables_initializer([image_var]))
         img_filter_summary_op = tf.summary.image("first_layer_filters",
                                                  image_filter)
         summary_writer.add_summary(sess.run(img_filter_summary_op))
@@ -380,7 +379,6 @@ def main_supervised(ae):
 
     data = read_data_sets(FLAGS.data_dir)
     num_train = data.train.num_examples
-    num_train = 100
     labels_placeholder = tf.placeholder(tf.int32,
                                         shape=FLAGS.batch_size,
                                         name='target_pl')
@@ -405,9 +403,9 @@ def main_supervised(ae):
 
     vars_to_init = ae.get_variables_to_init(ae.num_hidden_layers + 1)
     vars_to_init.append(global_step)
-    sess.run(tf.initialize_variables(vars_to_init))
+    sess.run(tf.variables_initializer(vars_to_init))
 
-    steps = FLAGS.finetuning_epochs * num_train
+    steps = FLAGS.finetuning_epochs * int(num_train/FLAGS.batch_size)
     for step in xrange(steps):
       start_time = time.time()
 
@@ -434,7 +432,7 @@ def main_supervised(ae):
                                         (FLAGS.batch_size,
                                          FLAGS.image_size,
                                          FLAGS.image_size, 1)),
-                             max_images=FLAGS.batch_size),
+                             max_outputs=FLAGS.batch_size),
             feed_dict=feed_dict
         )
         summary_writer.add_summary(summary_img_str)

@@ -4,3 +4,6 @@ nohup.out
 *.pyc
 tbpid
 venv/*
+data/
+summary/
+chkpts/
