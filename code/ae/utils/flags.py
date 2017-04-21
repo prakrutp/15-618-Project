@@ -18,7 +18,7 @@ flags = tf.app.flags
 FLAGS = flags.FLAGS
 
 # Autoencoder Architecture Specific Flags
-flags.DEFINE_integer("num_hidden_layers", 3, "Number of hidden layers")
+flags.DEFINE_integer("num_hidden_layers", 10, "Number of hidden layers")
 
 flags.DEFINE_integer('hidden1_units', 2000,
                      'Number of units in hidden layer 1.')
@@ -26,6 +26,21 @@ flags.DEFINE_integer('hidden2_units', 2000,
                      'Number of units in hidden layer 2.')
 flags.DEFINE_integer('hidden3_units', 2000,
                      'Number of units in hidden layer 3.')
+flags.DEFINE_integer('hidden4_units', 2000,
+                     'Number of units in hidden layer 1.')
+flags.DEFINE_integer('hidden5_units', 2000,
+                     'Number of units in hidden layer 2.')
+flags.DEFINE_integer('hidden6_units', 2000,
+                     'Number of units in hidden layer 3.')
+flags.DEFINE_integer('hidden7_units', 2000,
+                     'Number of units in hidden layer 1.')
+flags.DEFINE_integer('hidden8_units', 2000,
+                     'Number of units in hidden layer 2.')
+flags.DEFINE_integer('hidden9_units', 2000,
+                     'Number of units in hidden layer 3.')
+flags.DEFINE_integer('hidden10_units', 2000,
+                     'Number of units in hidden layer 3.')
+
 
 flags.DEFINE_integer('image_pixels', IMAGE_PIXELS, 'Total number of pixels')
 flags.DEFINE_integer('num_classes', 10, 'Number of classes')
@@ -51,9 +66,9 @@ flags.DEFINE_integer('batch_size', 100,
 flags.DEFINE_float('supervised_learning_rate', 0.1,
                    'Supervised initial learning rate.')
 
-flags.DEFINE_integer('pretraining_epochs', 1,
+flags.DEFINE_integer('pretraining_epochs', 10,
                      "Number of training epochs for pretraining layers")
-flags.DEFINE_integer('finetuning_epochs', 1,
+flags.DEFINE_integer('finetuning_epochs', 10,
                      "Number of training epochs for "
                      "fine tuning supervised step")
 

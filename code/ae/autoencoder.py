@@ -8,7 +8,7 @@ import tensorflow as tf
 from utils.data import fill_feed_dict_ae, read_data_sets_pretraining
 from utils.data import read_data_sets, fill_feed_dict
 from utils.flags import FLAGS
-from utils.eval import loss_supervised, evaluation, do_eval_summary
+from utils.eval import loss_supervised, evaluation, do_eval_summary, do_eval
 from utils.utils import tile_raster_images
 
 
@@ -318,17 +318,20 @@ def main_unsupervised():
         vars_to_init.append(global_step)
         sess.run(tf.variables_initializer(vars_to_init))
 
-        print("\n\n")
-        print("| Training Step | Cross Entropy |  Layer  |   Epoch  |")
-        print("|---------------|---------------|---------|----------|")
+    print("\n\n")
+    print("| Training Step | Cross Entropy |  Layer  |   Epoch  |")
+    print("|---------------|---------------|---------|----------|")
 
-        for step in xrange(int(num_train / FLAGS.batch_size)):
+    for step in xrange(FLAGS.pretraining_epochs):
+      for i in xrange(len(ae_shape) - 2):
+        n = i + 1
+        for istep in xrange(int(num_train / FLAGS.batch_size)):
           feed_dict = fill_feed_dict_ae(data.train, input_, target_, noise[i])
 
           loss_summary, loss_value = sess.run([train_op, loss],
                                               feed_dict=feed_dict)
 
-          if step % 100 == 0:
+          if istep % 100 == 0:
             summary_str = sess.run(summary_op, feed_dict=feed_dict)
             summary_writer.add_summary(summary_str, step)
             image_summary_op = \
@@ -344,28 +347,9 @@ def main_unsupervised():
             summary_writer.add_summary(summary_img_str)
 
             output = "| {0:>13} | {1:13.4f} | Layer {2} | Epoch {3}  |"\
-                     .format(step, loss_value, n, step // num_train + 1)
+                     .format(istep, loss_value, n, step + 1 )
 
             print(output)
-      """
-      if i == 0:
-        filters = sess.run(tf.identity(ae["weights1"]))
-        np.save(pjoin(FLAGS.chkpt_dir, "filters"), filters)
-        filters = tile_raster_images(X=filters.T,
-                                     img_shape=(FLAGS.image_size,
-                                                FLAGS.image_size),
-                                     tile_shape=(10, 10),
-                                     output_pixel_vals=False)
-        filters = np.expand_dims(np.expand_dims(filters, 0), 3)
-        image_var = tf.Variable(filters)
-        image_filter = tf.identity(image_var)
-        sess.run(tf.variables_initializer([image_var]))
-        img_filter_summary_op = tf.summary.image("first_layer_filters",
-                                                 image_filter)
-        summary_writer.add_summary(sess.run(img_filter_summary_op))
-        summary_writer.flush()
-    """
-
   return ae
 
 
@@ -462,6 +446,7 @@ def main_supervised(ae):
         summary_writer.add_summary(train_sum, step)
         summary_writer.add_summary(val_sum, step)
         summary_writer.add_summary(test_sum, step)
+    do_eval(sess, eval_correct, input_pl, labels_placeholder, data.test)
 
 if __name__ == '__main__':
   ae = main_unsupervised()
