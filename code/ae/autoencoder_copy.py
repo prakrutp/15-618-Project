@@ -12,18 +12,19 @@ from utils.eval import loss_supervised, evaluation, do_eval_summary, do_eval
 from utils.utils import tile_raster_images
 import socket
 import json
-import sys
 
 TCP_IP = '127.0.0.1'
 TCP_PORT = 5006
 
-MESSAGE = "HI"
+MESSAGE = "HI2"
 
 m = {}
 m['msg'] = MESSAGE
 send_data = json.dumps(m)
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect((TCP_IP, TCP_PORT))
+s.bind((TCP_IP, TCP_PORT))
+s.listen(1)
+conn, addr = s.accept()
 
 class AutoEncoder(object):
   """Generic deep autoencoder.
@@ -255,6 +256,7 @@ def training(loss, learning_rate, loss_key=None):
   train_op = optimizer.minimize(loss, global_step=global_step)
   return train_op, global_step
 
+
 def loss_x_entropy(output, target):
   """Cross entropy loss
 
@@ -317,7 +319,7 @@ def main_unsupervised():
         loss = loss_x_entropy(layer, target_for_loss)
         train_op, global_step = training(loss, learning_rates[i], i)
 
-        summary_dir = pjoin(FLAGS.summary_dir, 'pretraining_{0}'.format(n))
+        summary_dir = pjoin(FLAGS.summary_dir_copy, 'pretraining_{0}'.format(n))
         summary_writer = tf.summary.FileWriter(summary_dir,
                                                 graph_def=sess.graph_def,
                                                 flush_secs=FLAGS.flush_secs)
@@ -365,16 +367,12 @@ def main_unsupervised():
 
             print(output)
 
-        w = sess.run([target_for_loss],)
-        l = w.tolist()
-        print(sys.getsizeof(l))
-        m['msg'] = l
-        print(type(w))
-        send_data = json.dumps(m)
-        print(sys.getsizeof(send_data))
-        s.send(send_data)
-        print("Sent") 
-
+        print("Waiting for data")
+        recv_data = conn.recv(337596360)
+        print("Received data! Woot woot")
+        ob = json.loads(recv_data)
+        print(ob['msg'].shape)
+  
   return ae
 
 
@@ -405,7 +403,7 @@ def main_supervised(ae):
                       for v in hist_summaries]
     summary_op = tf.summary.merge(hist_summaries)
 
-    summary_writer = tf.summary.FileWriter(pjoin(FLAGS.summary_dir,
+    summary_writer = tf.summary.FileWriter(pjoin(FLAGS.summary_dir_copy,
                                                   'fine_tuning'),
                                             graph_def=sess.graph_def,
                                             flush_secs=FLAGS.flush_secs)
@@ -476,4 +474,4 @@ def main_supervised(ae):
 if __name__ == '__main__':
   ae = main_unsupervised()
   #main_supervised(ae)
-  s.close()
+  conn.close()

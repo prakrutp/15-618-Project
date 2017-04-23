@@ -1,12 +1,12 @@
 import os
 import shutil
 from ae.utils.flags import FLAGS, home_out
-import ae.autoencoder as autoencoder
+import ae.autoencoder_copy as autoencoder
 #from ae.utils.start_tensorboard import start
 
 _data_dir = FLAGS.data_dir
-_summary_dir = FLAGS.summary_dir
-_chkpt_dir = FLAGS.chkpt_dir
+_summary_dir = FLAGS.summary_dir_copy
+_chkpt_dir = FLAGS.chkpt_dir_copy
 
 def _check_and_clean_dir(d):
   if os.path.exists(d):
