@@ -3,6 +3,7 @@ import shutil
 from ae.utils.flags import FLAGS, home_out
 import ae.autoencoder as autoencoder
 #from ae.utils.start_tensorboard import start
+import time
 
 _data_dir = FLAGS.data_dir
 _summary_dir = FLAGS.summary_dir
@@ -29,8 +30,11 @@ def main():
   os.mkdir(os.path.join(_chkpt_dir, 'fine_tuning'))
 
   #start()
+  starttime = time.time()
   ae = autoencoder.main_unsupervised()
-  autoencoder.main_supervised(ae)
+  endtime = time.time()
+  print("Total time outer = ",int(endtime-starttime))
+  #autoencoder.main_supervised(ae)
 
 if __name__ == '__main__':
     main()

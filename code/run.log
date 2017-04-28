@@ -1,0 +1,846 @@
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      938.3722 | Layer 1 | Epoch 1  |
+|           100 |      330.9745 | Layer 1 | Epoch 1  |
+|           200 |      224.7174 | Layer 1 | Epoch 1  |
+|           300 |      203.9675 | Layer 1 | Epoch 1  |
+|           400 |      185.7818 | Layer 1 | Epoch 1  |
+|           500 |      186.7286 | Layer 1 | Epoch 1  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      179.4446 | Layer 1 | Epoch 2  |
+|             0 |     2555.5281 | Layer 2 | Epoch 2  |
+|           100 |      177.0265 | Layer 1 | Epoch 2  |
+|           100 |     1405.6740 | Layer 2 | Epoch 2  |
+|           200 |      181.1516 | Layer 1 | Epoch 2  |
+|           200 |     1322.4236 | Layer 2 | Epoch 2  |
+|           300 |      169.0848 | Layer 1 | Epoch 2  |
+|           300 |     1315.9622 | Layer 2 | Epoch 2  |
+|           400 |      168.1419 | Layer 1 | Epoch 2  |
+|           400 |     1317.4109 | Layer 2 | Epoch 2  |
+|           500 |      175.9397 | Layer 1 | Epoch 2  |
+|           500 |     1308.3896 | Layer 2 | Epoch 2  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      164.6274 | Layer 1 | Epoch 3  |
+|             0 |     2472.8042 | Layer 2 | Epoch 3  |
+|           100 |      170.3000 | Layer 1 | Epoch 3  |
+|           100 |     1396.1521 | Layer 2 | Epoch 3  |
+|           200 |      176.2930 | Layer 1 | Epoch 3  |
+|           200 |     1322.7971 | Layer 2 | Epoch 3  |
+|           300 |      170.1182 | Layer 1 | Epoch 3  |
+|           300 |     1312.6411 | Layer 2 | Epoch 3  |
+|           400 |      164.7089 | Layer 1 | Epoch 3  |
+|           400 |     1311.2300 | Layer 2 | Epoch 3  |
+|           500 |      161.2321 | Layer 1 | Epoch 3  |
+|           500 |     1311.4414 | Layer 2 | Epoch 3  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      166.4808 | Layer 1 | Epoch 4  |
+|             0 |     2524.3560 | Layer 2 | Epoch 4  |
+|           100 |      166.1334 | Layer 1 | Epoch 4  |
+|           100 |     1397.3695 | Layer 2 | Epoch 4  |
+|           200 |      167.4021 | Layer 1 | Epoch 4  |
+|           200 |     1317.4617 | Layer 2 | Epoch 4  |
+|           300 |      158.9434 | Layer 1 | Epoch 4  |
+|           300 |     1308.6360 | Layer 2 | Epoch 4  |
+|           400 |      165.3831 | Layer 1 | Epoch 4  |
+|           400 |     1304.6985 | Layer 2 | Epoch 4  |
+|           500 |      166.3874 | Layer 1 | Epoch 4  |
+|           500 |     1304.2776 | Layer 2 | Epoch 4  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      170.3968 | Layer 1 | Epoch 5  |
+|             0 |     2498.8647 | Layer 2 | Epoch 5  |
+|           100 |      170.1932 | Layer 1 | Epoch 5  |
+|           100 |     1393.5381 | Layer 2 | Epoch 5  |
+|           200 |      171.7608 | Layer 1 | Epoch 5  |
+|           200 |     1314.8527 | Layer 2 | Epoch 5  |
+|           300 |      158.5160 | Layer 1 | Epoch 5  |
+|           300 |     1310.5654 | Layer 2 | Epoch 5  |
+|           400 |      164.9848 | Layer 1 | Epoch 5  |
+|           400 |     1303.7791 | Layer 2 | Epoch 5  |
+|           500 |      166.9086 | Layer 1 | Epoch 5  |
+|           500 |     1295.3304 | Layer 2 | Epoch 5  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      163.0830 | Layer 1 | Epoch 6  |
+|             0 |     2559.7666 | Layer 2 | Epoch 6  |
+|           100 |      160.4732 | Layer 1 | Epoch 6  |
+|           100 |     1394.2723 | Layer 2 | Epoch 6  |
+|           200 |      159.1079 | Layer 1 | Epoch 6  |
+|           200 |     1313.2844 | Layer 2 | Epoch 6  |
+|           300 |      162.1884 | Layer 1 | Epoch 6  |
+|           300 |     1302.8781 | Layer 2 | Epoch 6  |
+|           400 |      163.0795 | Layer 1 | Epoch 6  |
+|           400 |     1300.9681 | Layer 2 | Epoch 6  |
+|           500 |      161.4230 | Layer 1 | Epoch 6  |
+|           500 |     1295.3317 | Layer 2 | Epoch 6  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      171.7162 | Layer 1 | Epoch 7  |
+|             0 |     2564.5815 | Layer 2 | Epoch 7  |
+|           100 |      158.5515 | Layer 1 | Epoch 7  |
+|           100 |     1390.7610 | Layer 2 | Epoch 7  |
+|           200 |      156.2950 | Layer 1 | Epoch 7  |
+|           200 |     1313.1882 | Layer 2 | Epoch 7  |
+|           300 |      158.1759 | Layer 1 | Epoch 7  |
+|           300 |     1298.4297 | Layer 2 | Epoch 7  |
+|           400 |      160.3966 | Layer 1 | Epoch 7  |
+|           400 |     1295.9509 | Layer 2 | Epoch 7  |
+|           500 |      156.7087 | Layer 1 | Epoch 7  |
+|           500 |     1293.1013 | Layer 2 | Epoch 7  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      151.0084 | Layer 1 | Epoch 8  |
+|             0 |     2532.5464 | Layer 2 | Epoch 8  |
+|           100 |      148.9976 | Layer 1 | Epoch 8  |
+|           100 |     1396.4548 | Layer 2 | Epoch 8  |
+|           200 |      154.2894 | Layer 1 | Epoch 8  |
+|           200 |     1312.9360 | Layer 2 | Epoch 8  |
+|           300 |      157.8375 | Layer 1 | Epoch 8  |
+|           300 |     1299.7296 | Layer 2 | Epoch 8  |
+|           400 |      153.0398 | Layer 1 | Epoch 8  |
+|           400 |     1289.4360 | Layer 2 | Epoch 8  |
+|           500 |      152.6996 | Layer 1 | Epoch 8  |
+|           500 |     1292.8325 | Layer 2 | Epoch 8  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      145.1772 | Layer 1 | Epoch 9  |
+|             0 |     2459.0730 | Layer 2 | Epoch 9  |
+|           100 |      157.4856 | Layer 1 | Epoch 9  |
+|           100 |     1383.5515 | Layer 2 | Epoch 9  |
+|           200 |      161.4952 | Layer 1 | Epoch 9  |
+|           200 |     1304.9498 | Layer 2 | Epoch 9  |
+|           300 |      152.0404 | Layer 1 | Epoch 9  |
+|           300 |     1295.9816 | Layer 2 | Epoch 9  |
+|           400 |      155.9988 | Layer 1 | Epoch 9  |
+|           400 |     1292.4860 | Layer 2 | Epoch 9  |
+|           500 |      158.7581 | Layer 1 | Epoch 9  |
+|           500 |     1280.9717 | Layer 2 | Epoch 9  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      150.9412 | Layer 1 | Epoch 10  |
+|             0 |     2523.4817 | Layer 2 | Epoch 10  |
+|           100 |      151.7683 | Layer 1 | Epoch 10  |
+|           100 |     1383.7961 | Layer 2 | Epoch 10  |
+|           200 |      150.8066 | Layer 1 | Epoch 10  |
+|           200 |     1306.7947 | Layer 2 | Epoch 10  |
+|           300 |      149.4422 | Layer 1 | Epoch 10  |
+|           300 |     1294.2612 | Layer 2 | Epoch 10  |
+|           400 |      154.4178 | Layer 1 | Epoch 10  |
+|           400 |     1286.9871 | Layer 2 | Epoch 10  |
+|           500 |      156.7298 | Layer 1 | Epoch 10  |
+|           500 |     1282.8522 | Layer 2 | Epoch 10  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      152.4011 | Layer 1 | Epoch 11  |
+|             0 |     2489.7451 | Layer 2 | Epoch 11  |
+|           100 |      158.9847 | Layer 1 | Epoch 11  |
+|           100 |     1378.6115 | Layer 2 | Epoch 11  |
+|           200 |      151.7198 | Layer 1 | Epoch 11  |
+|           200 |     1297.5308 | Layer 2 | Epoch 11  |
+|           300 |      153.7721 | Layer 1 | Epoch 11  |
+|           300 |     1289.5913 | Layer 2 | Epoch 11  |
+|           400 |      154.2492 | Layer 1 | Epoch 11  |
+|           400 |     1290.1724 | Layer 2 | Epoch 11  |
+|           500 |      147.6165 | Layer 1 | Epoch 11  |
+|           500 |     1286.2124 | Layer 2 | Epoch 11  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      152.0940 | Layer 1 | Epoch 12  |
+|             0 |     2442.1050 | Layer 2 | Epoch 12  |
+|           100 |      147.5204 | Layer 1 | Epoch 12  |
+|           100 |     1375.0819 | Layer 2 | Epoch 12  |
+|           200 |      146.1458 | Layer 1 | Epoch 12  |
+|           200 |     1300.1599 | Layer 2 | Epoch 12  |
+|           300 |      147.3830 | Layer 1 | Epoch 12  |
+|           300 |     1289.0018 | Layer 2 | Epoch 12  |
+|           400 |      146.1934 | Layer 1 | Epoch 12  |
+|           400 |     1280.8146 | Layer 2 | Epoch 12  |
+|           500 |      155.4039 | Layer 1 | Epoch 12  |
+|           500 |     1272.6213 | Layer 2 | Epoch 12  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      145.9109 | Layer 1 | Epoch 13  |
+|             0 |     2503.5034 | Layer 2 | Epoch 13  |
+|           100 |      148.9944 | Layer 1 | Epoch 13  |
+|           100 |     1381.3083 | Layer 2 | Epoch 13  |
+|           200 |      148.9690 | Layer 1 | Epoch 13  |
+|           200 |     1294.6208 | Layer 2 | Epoch 13  |
+|           300 |      147.5249 | Layer 1 | Epoch 13  |
+|           300 |     1282.8999 | Layer 2 | Epoch 13  |
+|           400 |      145.3063 | Layer 1 | Epoch 13  |
+|           400 |     1280.9806 | Layer 2 | Epoch 13  |
+|           500 |      149.6437 | Layer 1 | Epoch 13  |
+|           500 |     1273.9697 | Layer 2 | Epoch 13  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      141.6828 | Layer 1 | Epoch 14  |
+|             0 |     2481.3770 | Layer 2 | Epoch 14  |
+|           100 |      150.5768 | Layer 1 | Epoch 14  |
+|           100 |     1365.5984 | Layer 2 | Epoch 14  |
+|           200 |      150.2455 | Layer 1 | Epoch 14  |
+|           200 |     1294.8583 | Layer 2 | Epoch 14  |
+|           300 |      148.0125 | Layer 1 | Epoch 14  |
+|           300 |     1281.1917 | Layer 2 | Epoch 14  |
+|           400 |      147.9989 | Layer 1 | Epoch 14  |
+|           400 |     1273.8572 | Layer 2 | Epoch 14  |
+|           500 |      141.1906 | Layer 1 | Epoch 14  |
+|           500 |     1274.5665 | Layer 2 | Epoch 14  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      145.0948 | Layer 1 | Epoch 15  |
+|             0 |     2567.3394 | Layer 2 | Epoch 15  |
+|           100 |      144.7844 | Layer 1 | Epoch 15  |
+|           100 |     1375.9994 | Layer 2 | Epoch 15  |
+|           200 |      151.0709 | Layer 1 | Epoch 15  |
+|           200 |     1281.3545 | Layer 2 | Epoch 15  |
+|           300 |      142.5658 | Layer 1 | Epoch 15  |
+|           300 |     1276.0491 | Layer 2 | Epoch 15  |
+|           400 |      144.9057 | Layer 1 | Epoch 15  |
+|           400 |     1278.4860 | Layer 2 | Epoch 15  |
+|           500 |      141.5829 | Layer 1 | Epoch 15  |
+|           500 |     1274.7856 | Layer 2 | Epoch 15  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      150.6567 | Layer 1 | Epoch 16  |
+|             0 |     2483.3481 | Layer 2 | Epoch 16  |
+|           100 |      146.5843 | Layer 1 | Epoch 16  |
+|           100 |     1358.9460 | Layer 2 | Epoch 16  |
+|           200 |      145.0862 | Layer 1 | Epoch 16  |
+|           200 |     1283.0286 | Layer 2 | Epoch 16  |
+|           300 |      140.6520 | Layer 1 | Epoch 16  |
+|           300 |     1273.0017 | Layer 2 | Epoch 16  |
+|           400 |      143.7701 | Layer 1 | Epoch 16  |
+|           400 |     1266.0779 | Layer 2 | Epoch 16  |
+|           500 |      144.2217 | Layer 1 | Epoch 16  |
+|           500 |     1264.1028 | Layer 2 | Epoch 16  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      141.1859 | Layer 1 | Epoch 17  |
+|             0 |     2527.6545 | Layer 2 | Epoch 17  |
+|           100 |      146.0425 | Layer 1 | Epoch 17  |
+|           100 |     1363.8715 | Layer 2 | Epoch 17  |
+|           200 |      137.9394 | Layer 1 | Epoch 17  |
+|           200 |     1285.0759 | Layer 2 | Epoch 17  |
+|           300 |      151.1347 | Layer 1 | Epoch 17  |
+|           300 |     1255.3271 | Layer 2 | Epoch 17  |
+|           400 |      143.8992 | Layer 1 | Epoch 17  |
+|           400 |     1266.8879 | Layer 2 | Epoch 17  |
+|           500 |      150.5569 | Layer 1 | Epoch 17  |
+|           500 |     1261.0229 | Layer 2 | Epoch 17  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      147.1302 | Layer 1 | Epoch 18  |
+|             0 |     2519.5083 | Layer 2 | Epoch 18  |
+|           100 |      136.2137 | Layer 1 | Epoch 18  |
+|           100 |     1365.8472 | Layer 2 | Epoch 18  |
+|           200 |      146.1182 | Layer 1 | Epoch 18  |
+|           200 |     1273.8411 | Layer 2 | Epoch 18  |
+|           300 |      142.9621 | Layer 1 | Epoch 18  |
+|           300 |     1271.3544 | Layer 2 | Epoch 18  |
+|           400 |      141.8248 | Layer 1 | Epoch 18  |
+|           400 |     1265.2043 | Layer 2 | Epoch 18  |
+|           500 |      145.8121 | Layer 1 | Epoch 18  |
+|           500 |     1266.1626 | Layer 2 | Epoch 18  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      143.1960 | Layer 1 | Epoch 19  |
+|             0 |     2514.7178 | Layer 2 | Epoch 19  |
+|           100 |      140.3240 | Layer 1 | Epoch 19  |
+|           100 |     1364.7036 | Layer 2 | Epoch 19  |
+|           200 |      135.9118 | Layer 1 | Epoch 19  |
+|           200 |     1283.9741 | Layer 2 | Epoch 19  |
+|           300 |      139.2456 | Layer 1 | Epoch 19  |
+|           300 |     1273.5002 | Layer 2 | Epoch 19  |
+|           400 |      139.5011 | Layer 1 | Epoch 19  |
+|           400 |     1264.7373 | Layer 2 | Epoch 19  |
+|           500 |      139.5046 | Layer 1 | Epoch 19  |
+|           500 |     1264.9023 | Layer 2 | Epoch 19  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      148.6434 | Layer 1 | Epoch 20  |
+|             0 |     2561.4937 | Layer 2 | Epoch 20  |
+|           100 |      143.7675 | Layer 1 | Epoch 20  |
+|           100 |     1361.4187 | Layer 2 | Epoch 20  |
+|           200 |      141.4918 | Layer 1 | Epoch 20  |
+|           200 |     1276.4745 | Layer 2 | Epoch 20  |
+|           300 |      135.9730 | Layer 1 | Epoch 20  |
+|           300 |     1263.1237 | Layer 2 | Epoch 20  |
+|           400 |      142.2335 | Layer 1 | Epoch 20  |
+|           400 |     1258.4803 | Layer 2 | Epoch 20  |
+|           500 |      136.9872 | Layer 1 | Epoch 20  |
+|           500 |     1264.0500 | Layer 2 | Epoch 20  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      141.0935 | Layer 1 | Epoch 21  |
+|             0 |     2444.9617 | Layer 2 | Epoch 21  |
+|           100 |      142.1743 | Layer 1 | Epoch 21  |
+|           100 |     1355.4176 | Layer 2 | Epoch 21  |
+|           200 |      141.8002 | Layer 1 | Epoch 21  |
+|           200 |     1270.1490 | Layer 2 | Epoch 21  |
+|           300 |      137.3242 | Layer 1 | Epoch 21  |
+|           300 |     1258.8718 | Layer 2 | Epoch 21  |
+|           400 |      142.6056 | Layer 1 | Epoch 21  |
+|           400 |     1249.3330 | Layer 2 | Epoch 21  |
+|           500 |      138.1620 | Layer 1 | Epoch 21  |
+|           500 |     1260.8071 | Layer 2 | Epoch 21  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      136.3813 | Layer 1 | Epoch 22  |
+|             0 |     2519.6113 | Layer 2 | Epoch 22  |
+|           100 |      137.6575 | Layer 1 | Epoch 22  |
+|           100 |     1364.9231 | Layer 2 | Epoch 22  |
+|           200 |      137.5347 | Layer 1 | Epoch 22  |
+|           200 |     1269.5199 | Layer 2 | Epoch 22  |
+|           300 |      138.7773 | Layer 1 | Epoch 22  |
+|           300 |     1261.6339 | Layer 2 | Epoch 22  |
+|           400 |      141.7339 | Layer 1 | Epoch 22  |
+|           400 |     1248.0767 | Layer 2 | Epoch 22  |
+|           500 |      130.3221 | Layer 1 | Epoch 22  |
+|           500 |     1259.1205 | Layer 2 | Epoch 22  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      133.7103 | Layer 1 | Epoch 23  |
+|             0 |     2534.6541 | Layer 2 | Epoch 23  |
+|           100 |      135.4398 | Layer 1 | Epoch 23  |
+|           100 |     1353.4442 | Layer 2 | Epoch 23  |
+|           200 |      136.8154 | Layer 1 | Epoch 23  |
+|           200 |     1267.8427 | Layer 2 | Epoch 23  |
+|           300 |      138.8522 | Layer 1 | Epoch 23  |
+|           300 |     1246.7504 | Layer 2 | Epoch 23  |
+|           400 |      137.8266 | Layer 1 | Epoch 23  |
+|           400 |     1260.3716 | Layer 2 | Epoch 23  |
+|           500 |      139.9995 | Layer 1 | Epoch 23  |
+|           500 |     1247.5547 | Layer 2 | Epoch 23  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      140.5297 | Layer 1 | Epoch 24  |
+|             0 |     2439.3970 | Layer 2 | Epoch 24  |
+|           100 |      136.3854 | Layer 1 | Epoch 24  |
+|           100 |     1347.0541 | Layer 2 | Epoch 24  |
+|           200 |      135.4681 | Layer 1 | Epoch 24  |
+|           200 |     1261.2294 | Layer 2 | Epoch 24  |
+|           300 |      136.5150 | Layer 1 | Epoch 24  |
+|           300 |     1252.9070 | Layer 2 | Epoch 24  |
+|           400 |      135.6279 | Layer 1 | Epoch 24  |
+|           400 |     1260.0000 | Layer 2 | Epoch 24  |
+|           500 |      138.6854 | Layer 1 | Epoch 24  |
+|           500 |     1254.3833 | Layer 2 | Epoch 24  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      137.9704 | Layer 1 | Epoch 25  |
+|             0 |     2491.0588 | Layer 2 | Epoch 25  |
+|           100 |      143.8273 | Layer 1 | Epoch 25  |
+|           100 |     1331.9309 | Layer 2 | Epoch 25  |
+|           200 |      130.3995 | Layer 1 | Epoch 25  |
+|           200 |     1267.2397 | Layer 2 | Epoch 25  |
+|           300 |      131.7126 | Layer 1 | Epoch 25  |
+|           300 |     1256.7310 | Layer 2 | Epoch 25  |
+|           400 |      134.9442 | Layer 1 | Epoch 25  |
+|           400 |     1253.2596 | Layer 2 | Epoch 25  |
+|           500 |      137.4249 | Layer 1 | Epoch 25  |
+|           500 |     1242.5337 | Layer 2 | Epoch 25  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      137.0674 | Layer 1 | Epoch 26  |
+|             0 |     2474.5137 | Layer 2 | Epoch 26  |
+|           100 |      130.8482 | Layer 1 | Epoch 26  |
+|           100 |     1352.5182 | Layer 2 | Epoch 26  |
+|           200 |      135.0187 | Layer 1 | Epoch 26  |
+|           200 |     1266.6622 | Layer 2 | Epoch 26  |
+|           300 |      136.2062 | Layer 1 | Epoch 26  |
+|           300 |     1250.2628 | Layer 2 | Epoch 26  |
+|           400 |      135.0195 | Layer 1 | Epoch 26  |
+|           400 |     1244.4149 | Layer 2 | Epoch 26  |
+|           500 |      127.3605 | Layer 1 | Epoch 26  |
+|           500 |     1246.6686 | Layer 2 | Epoch 26  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      132.5072 | Layer 1 | Epoch 27  |
+|             0 |     2543.5088 | Layer 2 | Epoch 27  |
+|           100 |      138.1325 | Layer 1 | Epoch 27  |
+|           100 |     1350.1101 | Layer 2 | Epoch 27  |
+|           200 |      133.5639 | Layer 1 | Epoch 27  |
+|           200 |     1267.8279 | Layer 2 | Epoch 27  |
+|           300 |      130.3698 | Layer 1 | Epoch 27  |
+|           300 |     1250.9154 | Layer 2 | Epoch 27  |
+|           400 |      135.0539 | Layer 1 | Epoch 27  |
+|           400 |     1249.6218 | Layer 2 | Epoch 27  |
+|           500 |      130.0339 | Layer 1 | Epoch 27  |
+|           500 |     1247.7151 | Layer 2 | Epoch 27  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      134.0547 | Layer 1 | Epoch 28  |
+|             0 |     2507.5361 | Layer 2 | Epoch 28  |
+|           100 |      126.1043 | Layer 1 | Epoch 28  |
+|           100 |     1355.5132 | Layer 2 | Epoch 28  |
+|           200 |      135.3204 | Layer 1 | Epoch 28  |
+|           200 |     1265.2961 | Layer 2 | Epoch 28  |
+|           300 |      131.6115 | Layer 1 | Epoch 28  |
+|           300 |     1253.4469 | Layer 2 | Epoch 28  |
+|           400 |      129.0152 | Layer 1 | Epoch 28  |
+|           400 |     1248.0493 | Layer 2 | Epoch 28  |
+|           500 |      130.6659 | Layer 1 | Epoch 28  |
+|           500 |     1246.1328 | Layer 2 | Epoch 28  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      128.3704 | Layer 1 | Epoch 29  |
+|             0 |     2448.7405 | Layer 2 | Epoch 29  |
+|           100 |      132.6004 | Layer 1 | Epoch 29  |
+|           100 |     1338.9568 | Layer 2 | Epoch 29  |
+|           200 |      131.9752 | Layer 1 | Epoch 29  |
+|           200 |     1252.9559 | Layer 2 | Epoch 29  |
+|           300 |      130.6786 | Layer 1 | Epoch 29  |
+|           300 |     1246.1763 | Layer 2 | Epoch 29  |
+|           400 |      133.4295 | Layer 1 | Epoch 29  |
+|           400 |     1241.7285 | Layer 2 | Epoch 29  |
+|           500 |      124.5100 | Layer 1 | Epoch 29  |
+|           500 |     1248.1570 | Layer 2 | Epoch 29  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      128.2143 | Layer 1 | Epoch 30  |
+|             0 |     2503.5576 | Layer 2 | Epoch 30  |
+|           100 |      131.6892 | Layer 1 | Epoch 30  |
+|           100 |     1338.4874 | Layer 2 | Epoch 30  |
+|           200 |      132.4497 | Layer 1 | Epoch 30  |
+|           200 |     1260.2327 | Layer 2 | Epoch 30  |
+|           300 |      126.8329 | Layer 1 | Epoch 30  |
+|           300 |     1254.4744 | Layer 2 | Epoch 30  |
+|           400 |      130.0515 | Layer 1 | Epoch 30  |
+|           400 |     1233.1083 | Layer 2 | Epoch 30  |
+|           500 |      130.2279 | Layer 1 | Epoch 30  |
+|           500 |     1235.9589 | Layer 2 | Epoch 30  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      132.2581 | Layer 1 | Epoch 31  |
+|             0 |     2473.4006 | Layer 2 | Epoch 31  |
+|           100 |      128.7678 | Layer 1 | Epoch 31  |
+|           100 |     1330.9746 | Layer 2 | Epoch 31  |
+|           200 |      131.2339 | Layer 1 | Epoch 31  |
+|           200 |     1247.7054 | Layer 2 | Epoch 31  |
+|           300 |      131.9006 | Layer 1 | Epoch 31  |
+|           300 |     1244.1749 | Layer 2 | Epoch 31  |
+|           400 |      127.5505 | Layer 1 | Epoch 31  |
+|           400 |     1239.5403 | Layer 2 | Epoch 31  |
+|           500 |      130.3604 | Layer 1 | Epoch 31  |
+|           500 |     1236.5768 | Layer 2 | Epoch 31  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      126.7345 | Layer 1 | Epoch 32  |
+|             0 |     2508.8669 | Layer 2 | Epoch 32  |
+|           100 |      129.1598 | Layer 1 | Epoch 32  |
+|           100 |     1335.4500 | Layer 2 | Epoch 32  |
+|           200 |      129.7876 | Layer 1 | Epoch 32  |
+|           200 |     1252.0977 | Layer 2 | Epoch 32  |
+|           300 |      129.1114 | Layer 1 | Epoch 32  |
+|           300 |     1244.1018 | Layer 2 | Epoch 32  |
+|           400 |      130.2419 | Layer 1 | Epoch 32  |
+|           400 |     1227.6350 | Layer 2 | Epoch 32  |
+|           500 |      133.8527 | Layer 1 | Epoch 32  |
+|           500 |     1229.5682 | Layer 2 | Epoch 32  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      127.7334 | Layer 1 | Epoch 33  |
+|             0 |     2507.5242 | Layer 2 | Epoch 33  |
+|           100 |      133.1382 | Layer 1 | Epoch 33  |
+|           100 |     1331.9880 | Layer 2 | Epoch 33  |
+|           200 |      128.8596 | Layer 1 | Epoch 33  |
+|           200 |     1254.8872 | Layer 2 | Epoch 33  |
+|           300 |      138.0454 | Layer 1 | Epoch 33  |
+|           300 |     1230.2681 | Layer 2 | Epoch 33  |
+|           400 |      130.9211 | Layer 1 | Epoch 33  |
+|           400 |     1230.9268 | Layer 2 | Epoch 33  |
+|           500 |      128.4692 | Layer 1 | Epoch 33  |
+|           500 |     1240.7410 | Layer 2 | Epoch 33  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      129.8932 | Layer 1 | Epoch 34  |
+|             0 |     2526.7471 | Layer 2 | Epoch 34  |
+|           100 |      127.5831 | Layer 1 | Epoch 34  |
+|           100 |     1334.2383 | Layer 2 | Epoch 34  |
+|           200 |      129.7923 | Layer 1 | Epoch 34  |
+|           200 |     1257.4092 | Layer 2 | Epoch 34  |
+|           300 |      133.1005 | Layer 1 | Epoch 34  |
+|           300 |     1225.0037 | Layer 2 | Epoch 34  |
+|           400 |      129.1434 | Layer 1 | Epoch 34  |
+|           400 |     1226.3525 | Layer 2 | Epoch 34  |
+|           500 |      128.7041 | Layer 1 | Epoch 34  |
+|           500 |     1231.2501 | Layer 2 | Epoch 34  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      129.0938 | Layer 1 | Epoch 35  |
+|             0 |     2479.1982 | Layer 2 | Epoch 35  |
+|           100 |      127.4459 | Layer 1 | Epoch 35  |
+|           100 |     1340.9839 | Layer 2 | Epoch 35  |
+|           200 |      132.0863 | Layer 1 | Epoch 35  |
+|           200 |     1249.2289 | Layer 2 | Epoch 35  |
+|           300 |      129.1549 | Layer 1 | Epoch 35  |
+|           300 |     1235.4902 | Layer 2 | Epoch 35  |
+|           400 |      132.0955 | Layer 1 | Epoch 35  |
+|           400 |     1223.9739 | Layer 2 | Epoch 35  |
+|           500 |      128.4021 | Layer 1 | Epoch 35  |
+|           500 |     1233.8789 | Layer 2 | Epoch 35  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      132.4647 | Layer 1 | Epoch 36  |
+|             0 |     2495.2224 | Layer 2 | Epoch 36  |
+|           100 |      136.1615 | Layer 1 | Epoch 36  |
+|           100 |     1320.5525 | Layer 2 | Epoch 36  |
+|           200 |      127.1020 | Layer 1 | Epoch 36  |
+|           200 |     1254.9929 | Layer 2 | Epoch 36  |
+|           300 |      130.5463 | Layer 1 | Epoch 36  |
+|           300 |     1229.6777 | Layer 2 | Epoch 36  |
+|           400 |      128.0844 | Layer 1 | Epoch 36  |
+|           400 |     1224.9644 | Layer 2 | Epoch 36  |
+|           500 |      130.2847 | Layer 1 | Epoch 36  |
+|           500 |     1223.1259 | Layer 2 | Epoch 36  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      126.9717 | Layer 1 | Epoch 37  |
+|             0 |     2488.4358 | Layer 2 | Epoch 37  |
+|           100 |      124.0827 | Layer 1 | Epoch 37  |
+|           100 |     1330.7664 | Layer 2 | Epoch 37  |
+|           200 |      123.6116 | Layer 1 | Epoch 37  |
+|           200 |     1248.9783 | Layer 2 | Epoch 37  |
+|           300 |      128.5378 | Layer 1 | Epoch 37  |
+|           300 |     1220.9640 | Layer 2 | Epoch 37  |
+|           400 |      126.8012 | Layer 1 | Epoch 37  |
+|           400 |     1231.0908 | Layer 2 | Epoch 37  |
+|           500 |      127.7460 | Layer 1 | Epoch 37  |
+|           500 |     1224.5643 | Layer 2 | Epoch 37  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      127.2851 | Layer 1 | Epoch 38  |
+|             0 |     2499.8601 | Layer 2 | Epoch 38  |
+|           100 |      128.2463 | Layer 1 | Epoch 38  |
+|           100 |     1318.3416 | Layer 2 | Epoch 38  |
+|           200 |      131.5760 | Layer 1 | Epoch 38  |
+|           200 |     1248.0857 | Layer 2 | Epoch 38  |
+|           300 |      126.6707 | Layer 1 | Epoch 38  |
+|           300 |     1221.1851 | Layer 2 | Epoch 38  |
+|           400 |      125.7919 | Layer 1 | Epoch 38  |
+|           400 |     1218.6052 | Layer 2 | Epoch 38  |
+|           500 |      126.8304 | Layer 1 | Epoch 38  |
+|           500 |     1224.5410 | Layer 2 | Epoch 38  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      124.4287 | Layer 1 | Epoch 39  |
+|             0 |     2474.7671 | Layer 2 | Epoch 39  |
+|           100 |      127.8382 | Layer 1 | Epoch 39  |
+|           100 |     1327.1776 | Layer 2 | Epoch 39  |
+|           200 |      132.3212 | Layer 1 | Epoch 39  |
+|           200 |     1238.4623 | Layer 2 | Epoch 39  |
+|           300 |      128.2997 | Layer 1 | Epoch 39  |
+|           300 |     1230.3118 | Layer 2 | Epoch 39  |
+|           400 |      122.7486 | Layer 1 | Epoch 39  |
+|           400 |     1229.6906 | Layer 2 | Epoch 39  |
+|           500 |      124.8400 | Layer 1 | Epoch 39  |
+|           500 |     1232.9875 | Layer 2 | Epoch 39  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      129.6386 | Layer 1 | Epoch 40  |
+|             0 |     2458.2837 | Layer 2 | Epoch 40  |
+|           100 |      126.7564 | Layer 1 | Epoch 40  |
+|           100 |     1317.2673 | Layer 2 | Epoch 40  |
+|           200 |      129.4191 | Layer 1 | Epoch 40  |
+|           200 |     1243.3219 | Layer 2 | Epoch 40  |
+|           300 |      125.9093 | Layer 1 | Epoch 40  |
+|           300 |     1227.7402 | Layer 2 | Epoch 40  |
+|           400 |      131.3475 | Layer 1 | Epoch 40  |
+|           400 |     1216.2842 | Layer 2 | Epoch 40  |
+|           500 |      125.4537 | Layer 1 | Epoch 40  |
+|           500 |     1221.8914 | Layer 2 | Epoch 40  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      126.4656 | Layer 1 | Epoch 41  |
+|             0 |     2520.6709 | Layer 2 | Epoch 41  |
+|           100 |      124.2367 | Layer 1 | Epoch 41  |
+|           100 |     1325.4993 | Layer 2 | Epoch 41  |
+|           200 |      124.5229 | Layer 1 | Epoch 41  |
+|           200 |     1238.7659 | Layer 2 | Epoch 41  |
+|           300 |      128.7897 | Layer 1 | Epoch 41  |
+|           300 |     1227.0024 | Layer 2 | Epoch 41  |
+|           400 |      122.9497 | Layer 1 | Epoch 41  |
+|           400 |     1221.6824 | Layer 2 | Epoch 41  |
+|           500 |      118.4760 | Layer 1 | Epoch 41  |
+|           500 |     1219.7822 | Layer 2 | Epoch 41  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      124.8649 | Layer 1 | Epoch 42  |
+|             0 |     2516.8857 | Layer 2 | Epoch 42  |
+|           100 |      131.2678 | Layer 1 | Epoch 42  |
+|           100 |     1315.8855 | Layer 2 | Epoch 42  |
+|           200 |      122.4011 | Layer 1 | Epoch 42  |
+|           200 |     1244.4362 | Layer 2 | Epoch 42  |
+|           300 |      126.3552 | Layer 1 | Epoch 42  |
+|           300 |     1218.5737 | Layer 2 | Epoch 42  |
+|           400 |      127.1685 | Layer 1 | Epoch 42  |
+|           400 |     1218.6411 | Layer 2 | Epoch 42  |
+|           500 |      127.7239 | Layer 1 | Epoch 42  |
+|           500 |     1217.9221 | Layer 2 | Epoch 42  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      124.6365 | Layer 1 | Epoch 43  |
+|             0 |     2479.1428 | Layer 2 | Epoch 43  |
+|           100 |      131.3202 | Layer 1 | Epoch 43  |
+|           100 |     1312.6451 | Layer 2 | Epoch 43  |
+|           200 |      130.2414 | Layer 1 | Epoch 43  |
+|           200 |     1240.6708 | Layer 2 | Epoch 43  |
+|           300 |      127.6335 | Layer 1 | Epoch 43  |
+|           300 |     1214.2607 | Layer 2 | Epoch 43  |
+|           400 |      129.8762 | Layer 1 | Epoch 43  |
+|           400 |     1218.1333 | Layer 2 | Epoch 43  |
+|           500 |      128.9833 | Layer 1 | Epoch 43  |
+|           500 |     1212.1025 | Layer 2 | Epoch 43  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      126.2817 | Layer 1 | Epoch 44  |
+|             0 |     2455.8071 | Layer 2 | Epoch 44  |
+|           100 |      120.8135 | Layer 1 | Epoch 44  |
+|           100 |     1315.5474 | Layer 2 | Epoch 44  |
+|           200 |      120.9821 | Layer 1 | Epoch 44  |
+|           200 |     1233.0023 | Layer 2 | Epoch 44  |
+|           300 |      124.8602 | Layer 1 | Epoch 44  |
+|           300 |     1215.3121 | Layer 2 | Epoch 44  |
+|           400 |      121.5366 | Layer 1 | Epoch 44  |
+|           400 |     1218.3427 | Layer 2 | Epoch 44  |
+|           500 |      129.4579 | Layer 1 | Epoch 44  |
+|           500 |     1208.3701 | Layer 2 | Epoch 44  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      122.9852 | Layer 1 | Epoch 45  |
+|             0 |     2502.9290 | Layer 2 | Epoch 45  |
+|           100 |      120.7397 | Layer 1 | Epoch 45  |
+|           100 |     1316.8022 | Layer 2 | Epoch 45  |
+|           200 |      126.5571 | Layer 1 | Epoch 45  |
+|           200 |     1218.6975 | Layer 2 | Epoch 45  |
+|           300 |      124.7836 | Layer 1 | Epoch 45  |
+|           300 |     1213.6160 | Layer 2 | Epoch 45  |
+|           400 |      123.7930 | Layer 1 | Epoch 45  |
+|           400 |     1213.9380 | Layer 2 | Epoch 45  |
+|           500 |      124.3265 | Layer 1 | Epoch 45  |
+|           500 |     1210.8325 | Layer 2 | Epoch 45  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      118.8345 | Layer 1 | Epoch 46  |
+|             0 |     2540.1758 | Layer 2 | Epoch 46  |
+|           100 |      120.2970 | Layer 1 | Epoch 46  |
+|           100 |     1321.2917 | Layer 2 | Epoch 46  |
+|           200 |      118.5653 | Layer 1 | Epoch 46  |
+|           200 |     1241.0718 | Layer 2 | Epoch 46  |
+|           300 |      118.2401 | Layer 1 | Epoch 46  |
+|           300 |     1223.9774 | Layer 2 | Epoch 46  |
+|           400 |      118.9200 | Layer 1 | Epoch 46  |
+|           400 |     1220.5500 | Layer 2 | Epoch 46  |
+|           500 |      126.7895 | Layer 1 | Epoch 46  |
+|           500 |     1206.3250 | Layer 2 | Epoch 46  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      123.8926 | Layer 1 | Epoch 47  |
+|             0 |     2543.4309 | Layer 2 | Epoch 47  |
+|           100 |      125.6167 | Layer 1 | Epoch 47  |
+|           100 |     1315.8240 | Layer 2 | Epoch 47  |
+|           200 |      123.4084 | Layer 1 | Epoch 47  |
+|           200 |     1224.8513 | Layer 2 | Epoch 47  |
+|           300 |      123.0040 | Layer 1 | Epoch 47  |
+|           300 |     1215.6357 | Layer 2 | Epoch 47  |
+|           400 |      124.2212 | Layer 1 | Epoch 47  |
+|           400 |     1206.8186 | Layer 2 | Epoch 47  |
+|           500 |      116.9223 | Layer 1 | Epoch 47  |
+|           500 |     1211.3826 | Layer 2 | Epoch 47  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      121.9382 | Layer 1 | Epoch 48  |
+|             0 |     2549.1130 | Layer 2 | Epoch 48  |
+|           100 |      122.1909 | Layer 1 | Epoch 48  |
+|           100 |     1314.2980 | Layer 2 | Epoch 48  |
+|           200 |      117.1364 | Layer 1 | Epoch 48  |
+|           200 |     1241.7842 | Layer 2 | Epoch 48  |
+|           300 |      124.8319 | Layer 1 | Epoch 48  |
+|           300 |     1217.6562 | Layer 2 | Epoch 48  |
+|           400 |      122.5469 | Layer 1 | Epoch 48  |
+|           400 |     1209.4836 | Layer 2 | Epoch 48  |
+|           500 |      119.0698 | Layer 1 | Epoch 48  |
+|           500 |     1208.3228 | Layer 2 | Epoch 48  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      121.8820 | Layer 1 | Epoch 49  |
+|             0 |     2544.7156 | Layer 2 | Epoch 49  |
+|           100 |      123.3824 | Layer 1 | Epoch 49  |
+|           100 |     1318.5995 | Layer 2 | Epoch 49  |
+|           200 |      121.5799 | Layer 1 | Epoch 49  |
+|           200 |     1223.9861 | Layer 2 | Epoch 49  |
+|           300 |      121.5932 | Layer 1 | Epoch 49  |
+|           300 |     1220.1150 | Layer 2 | Epoch 49  |
+|           400 |      123.2826 | Layer 1 | Epoch 49  |
+|           400 |     1215.4412 | Layer 2 | Epoch 49  |
+|           500 |      118.3485 | Layer 1 | Epoch 49  |
+|           500 |     1206.0322 | Layer 2 | Epoch 49  |
+
+
+
+| Training Step | Cross Entropy |  Layer  |   Epoch  |
+|---------------|---------------|---------|----------|
+|             0 |      117.8436 | Layer 1 | Epoch 50  |
+|             0 |     2603.8245 | Layer 2 | Epoch 50  |
+|           100 |      122.9082 | Layer 1 | Epoch 50  |
+|           100 |     1328.0684 | Layer 2 | Epoch 50  |
+|           200 |      122.0978 | Layer 1 | Epoch 50  |
+|           200 |     1228.7415 | Layer 2 | Epoch 50  |
+|           300 |      122.9970 | Layer 1 | Epoch 50  |
+|           300 |     1214.8257 | Layer 2 | Epoch 50  |
+|           400 |      121.3858 | Layer 1 | Epoch 50  |
+|           400 |     1217.2113 | Layer 2 | Epoch 50  |
+|           500 |      117.0436 | Layer 1 | Epoch 50  |
+|           500 |     1205.9437 | Layer 2 | Epoch 50  |
+TIME IS =  -205
+('Total time outer = ', 207)

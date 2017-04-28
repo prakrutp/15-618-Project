@@ -74,9 +74,7 @@ class AutoEncoder(object):
           name_b_out = self._biases_str.format(i + 1) + "_out"
           b_shape = (self.__shape[i],)
           b_init = tf.zeros(b_shape)
-          self[name_b_out] = tf.Variable(b_init,
-                                         trainable=True,
-                                         name=name_b_out)
+          self[name_b_out] = tf.Variable(b_init, trainable=True, name=name_b_out)
 
   def _w(self, n, suffix=""):
     return self[self._weights_str.format(n) + suffix]
@@ -165,56 +163,82 @@ def loss_x_entropy(output, target):
 
 
 def main_unsupervised():
-  with tf.Graph().as_default() as g:
-    sess = tf.Session()
-
+  with tf.Graph().as_default():
+    #sess = tf.Session()
     num_hidden = FLAGS.num_hidden_layers
-    ae_hidden_shapes = [getattr(FLAGS, "hidden{0}_units".format(j + 1))
-                        for j in xrange(num_hidden)]
+    ae_hidden_shapes = [getattr(FLAGS, "hidden{0}_units".format(j + 1)) for j in xrange(num_hidden)]
     ae_shape = [FLAGS.image_pixels] + ae_hidden_shapes + [FLAGS.num_classes]
-
+    
+    sess = tf.Session(config=tf.ConfigProto(allow_soft_placement=True, log_device_placement=False))
     ae = AutoEncoder(ae_shape, sess)
 
     data = read_data_sets_pretraining(FLAGS.data_dir)
     num_train = data.train.num_examples
-
     learning_rates = {j: getattr(FLAGS, "pre_layer{0}_learning_rate".format(j + 1)) for j in xrange(num_hidden)}
+    noise = {j: getattr(FLAGS, "noise_{0}".format(j + 1)) for j in xrange(num_hidden)}
 
-    noise = {j: getattr(FLAGS, "noise_{0}".format(j + 1))
-             for j in xrange(num_hidden)}
+    st = time.time()
 
     for step in xrange(FLAGS.pretraining_epochs):
-      for i in xrange(len(ae_shape) - 2):
-        n = i + 1
-        #Every epoch, initialize variables to fixed random or fixed prev trained values
-        if step==0:
-          vars_to_init = ae.get_variables_to_init_first(n)
-          sess.run(tf.variables_initializer(vars_to_init))
-        else:
-          vars_to_init = ae.get_variables_to_init_after_first(n)
-          sess.run(tf.variables_initializer(vars_to_init))
+      if step==0:
+        n = 1
+        vars_to_init = ae.get_variables_to_init_first(n)
+        sess.run(tf.variables_initializer(vars_to_init))
         with tf.variable_scope("pretrain_{0}".format(n)):
           input_ = tf.placeholder(dtype=tf.float32, shape=(FLAGS.batch_size, ae_shape[0]), name='ae_input_pl')
           target_ = tf.placeholder(dtype=tf.float32, shape=(FLAGS.batch_size, ae_shape[0]), name='ae_target_pl')
           layer = ae.pretrain_net(input_, n)
-
           with tf.name_scope("target"):
             target_for_loss = ae.pretrain_net(target_, n, is_target=True)
-
           loss = loss_x_entropy(layer, target_for_loss)
-          train_op, global_step = training(loss, learning_rates[i], i)
+          train_op, global_step = training(loss, learning_rates[0], 0)
           sess.run(tf.variables_initializer([global_step]))
-
           print("\n\n")
           print("| Training Step | Cross Entropy |  Layer  |   Epoch  |")
           print("|---------------|---------------|---------|----------|")
-
           for istep in xrange(int(num_train / FLAGS.batch_size)):
-            feed_dict = fill_feed_dict_ae(data.train, input_, target_, noise[i])
+            feed_dict = fill_feed_dict_ae(data.train, input_, target_, noise[0])
             loss_summary, loss_value = sess.run([train_op, loss], feed_dict=feed_dict)
             if istep % 100 == 0:
               output = "| {0:>13} | {1:13.4f} | Layer {2} | Epoch {3}  |".format(istep, loss_value, n, step + 1 )
               print(output)
+      else:
+        vars_to_init = ae.get_variables_to_init_after_first(1)
+        sess.run(tf.variables_initializer(vars_to_init))
+        vars_to_init = ae.get_variables_to_init_first(2)
+        sess.run(tf.variables_initializer(vars_to_init))
+        with tf.variable_scope("pretrain"):
+          input_ = tf.placeholder(dtype=tf.float32, shape=(FLAGS.batch_size, ae_shape[0]), name='ae_input_pl')
+          target_ = tf.placeholder(dtype=tf.float32, shape=(FLAGS.batch_size, ae_shape[0]), name='ae_target_pl')
+          with tf.device('/gpu:0'):
+            n = 1
+            layer_1 = ae.pretrain_net(input_, n)
+            with tf.name_scope("target"):
+              target_for_loss_1 = ae.pretrain_net(target_, n, is_target=True)
+            loss_1 = loss_x_entropy(layer_1, target_for_loss_1)
+            train_op_1, global_step_1 = training(loss_1, learning_rates[0], 0)
+          with tf.device('/gpu:0'):
+            n = 2
+            layer_2 = ae.pretrain_net(input_, n)
+            with tf.name_scope("target"):
+              target_for_loss_2 = ae.pretrain_net(target_, n, is_target=True)
+            loss_2 = loss_x_entropy(layer_2, target_for_loss_2)
+            train_op_2, global_step_2 = training(loss_2, learning_rates[1], 1)
+          sess.run(tf.variables_initializer([global_step_1, global_step_2]))
+          print("\n\n")
+          print("| Training Step | Cross Entropy |  Layer  |   Epoch  |")
+          print("|---------------|---------------|---------|----------|")
+          for istep in xrange(int(num_train / FLAGS.batch_size)):
+            feed_dict = fill_feed_dict_ae(data.train, input_, target_, noise[0])
+            loss_summary_1, loss_value_1, loss_summary_2, loss_value_2 = sess.run([train_op_1, loss_1, train_op_2, loss_2], feed_dict=feed_dict)
+            if istep % 100 == 0:
+              output = "| {0:>13} | {1:13.4f} | Layer {2} | Epoch {3}  |".format(istep, loss_value_1, 1, step + 1 )
+              print(output)
+              output = "| {0:>13} | {1:13.4f} | Layer {2} | Epoch {3}  |".format(istep, loss_value_2, 2, step + 1 )
+              print(output)
+
+    et = time.time()
+    print("TIME IS = ",int(st-et))
   return ae
 
 
