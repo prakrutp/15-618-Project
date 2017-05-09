@@ -186,11 +186,12 @@ def main_unsupervised():
         if step<num_gpu:
           for j in xrange(step+1):
             n = num_gpu*batchlayerno + 1 + j
-            if j==step:
-              vars_to_init = ae.get_variables_to_init_first(n)
-            else:
-              vars_to_init = ae.get_variables_to_init_after_first(n)
-            sess.run(tf.variables_initializer(vars_to_init))
+            if n<=num_hidden:
+              if j==step:
+                vars_to_init = ae.get_variables_to_init_first(n)
+              else:
+                vars_to_init = ae.get_variables_to_init_after_first(n)
+              sess.run(tf.variables_initializer(vars_to_init))
           with tf.variable_scope("pretrain"):
             input_ = tf.placeholder(dtype=tf.float32, shape=(FLAGS.batch_size, ae_shape[0]), name='ae_input_pl')
             target_ = tf.placeholder(dtype=tf.float32, shape=(FLAGS.batch_size, ae_shape[0]), name='ae_target_pl')
@@ -203,40 +204,7 @@ def main_unsupervised():
           for j in xrange(step+1):
             with tf.device('/gpu:0'):
               n = num_gpu*batchlayerno + 1 + j
-              layerArray.append(ae.pretrain_net(input_, n))
-              with tf.name_scope("target"):
-                target_for_lossArray.append(ae.pretrain_net(target_, n, is_target=True))
-              lossArray.append(loss_x_entropy(layerArray[j], target_for_lossArray[j]))
-              train_opArray.append(training(lossArray[j], learning_rates[n-1], n-1))
-              ops_to_run.append(train_opArray[j])
-              ops_to_run.append(lossArray[j])
-          print("\n\n")
-          print("| Training Step | Cross Entropy |  Layer  |   Epoch  |")
-          print("|---------------|---------------|---------|----------|")
-          for istep in xrange(int(num_train / FLAGS.batch_size)):
-            feed_dict = fill_feed_dict_ae(data.train, input_, target_, noise[0])
-            ops_to_fetch = sess.run(ops_to_run, feed_dict=feed_dict)
-            if istep % 100 == 0:
-              for j in range(step+1):
-                output = "| {0:>13} | {1:13.4f} | Layer {2} | Epoch {3}  |".format(istep, ops_to_fetch[2*j+1], num_gpu*batchlayerno + 1 + j, step + 1 )
-                print(output)
-        else:
-          for j in xrange(num_gpu):
-            n = num_gpu*batchlayerno + 1 + j
-            vars_to_init = ae.get_variables_to_init_after_first(n)
-            sess.run(tf.variables_initializer(vars_to_init))
-          with tf.variable_scope("pretrain"):
-            input_ = tf.placeholder(dtype=tf.float32, shape=(FLAGS.batch_size, ae_shape[0]), name='ae_input_pl')
-            target_ = tf.placeholder(dtype=tf.float32, shape=(FLAGS.batch_size, ae_shape[0]), name='ae_target_pl')
-            lossArray = []
-            layerArray = []
-            target_for_lossArray = []
-            train_opArray = []
-            ops_to_fetch = []
-            ops_to_run = []
-            for j in xrange(num_gpu):
-              with tf.device('/gpu:0'):
-                n = num_gpu*batchlayerno + 1 + j
+              if n<=num_hidden:
                 layerArray.append(ae.pretrain_net(input_, n))
                 with tf.name_scope("target"):
                   target_for_lossArray.append(ae.pretrain_net(target_, n, is_target=True))
@@ -251,9 +219,49 @@ def main_unsupervised():
             feed_dict = fill_feed_dict_ae(data.train, input_, target_, noise[0])
             ops_to_fetch = sess.run(ops_to_run, feed_dict=feed_dict)
             if istep % 100 == 0:
+              for j in range(step+1):
+                n = num_gpu*batchlayerno + 1 + j
+                if n<=num_hidden:
+                  output = "| {0:>13} | {1:13.4f} | Layer {2} | Epoch {3}  |".format(istep, ops_to_fetch[2*j+1], n, step + 1 )
+                  print(output)
+        else:
+          for j in xrange(num_gpu):
+            n = num_gpu*batchlayerno + 1 + j
+            if n<=num_hidden:
+              vars_to_init = ae.get_variables_to_init_after_first(n)
+              sess.run(tf.variables_initializer(vars_to_init))
+          with tf.variable_scope("pretrain"):
+            input_ = tf.placeholder(dtype=tf.float32, shape=(FLAGS.batch_size, ae_shape[0]), name='ae_input_pl')
+            target_ = tf.placeholder(dtype=tf.float32, shape=(FLAGS.batch_size, ae_shape[0]), name='ae_target_pl')
+            lossArray = []
+            layerArray = []
+            target_for_lossArray = []
+            train_opArray = []
+            ops_to_fetch = []
+            ops_to_run = []
+            for j in xrange(num_gpu):
+              with tf.device('/gpu:0'):
+                n = num_gpu*batchlayerno + 1 + j
+                if n<=num_hidden:
+                  layerArray.append(ae.pretrain_net(input_, n))
+                  with tf.name_scope("target"):
+                    target_for_lossArray.append(ae.pretrain_net(target_, n, is_target=True))
+                  lossArray.append(loss_x_entropy(layerArray[j], target_for_lossArray[j]))
+                  train_opArray.append(training(lossArray[j], learning_rates[n-1], n-1))
+                  ops_to_run.append(train_opArray[j])
+                  ops_to_run.append(lossArray[j])
+          print("\n\n")
+          print("| Training Step | Cross Entropy |  Layer  |   Epoch  |")
+          print("|---------------|---------------|---------|----------|")
+          for istep in xrange(int(num_train / FLAGS.batch_size)):
+            feed_dict = fill_feed_dict_ae(data.train, input_, target_, noise[0])
+            ops_to_fetch = sess.run(ops_to_run, feed_dict=feed_dict)
+            if istep % 100 == 0:
               for j in range(num_gpu):
-                output = "| {0:>13} | {1:13.4f} | Layer {2} | Epoch {3}  |".format(istep, ops_to_fetch[2*j+1], num_gpu*batchlayerno + 1 + j, step + 1 )
-                print(output)
+                n = num_gpu*batchlayerno + 1 + j
+                if n<=num_hidden:
+                  output = "| {0:>13} | {1:13.4f} | Layer {2} | Epoch {3}  |".format(istep, ops_to_fetch[2*j+1], num_gpu*batchlayerno + 1 + j, step + 1 )
+                  print(output)
     
     et = time.time()
     print("TIME IS = ",int(et-st))
