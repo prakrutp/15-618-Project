@@ -8,7 +8,7 @@ import tensorflow as tf
 from utils.data import fill_feed_dict_ae, read_data_sets_pretraining
 from utils.data import read_data_sets, fill_feed_dict
 from utils.flags import FLAGS
-from utils.eval import loss_supervised, evaluation, do_eval_summary, do_eval
+from utils.eval import loss_supervised, evaluation, do_eval
 from utils.utils import tile_raster_images
 
 
@@ -46,6 +46,7 @@ class AutoEncoder(object):
   def _setup_variables(self):
     with tf.name_scope("autoencoder_variables"):
       for i in xrange(self.__num_hidden_layers + 1):
+        # Train weights
         name_w = self._weights_str.format(i + 1)
         w_shape = (self.__shape[i], self.__shape[i + 1])
         a = tf.multiply(4.0, tf.sqrt(6.0 / (w_shape[0] + w_shape[1])))
@@ -74,7 +75,9 @@ class AutoEncoder(object):
           name_b_out = self._biases_str.format(i + 1) + "_out"
           b_shape = (self.__shape[i],)
           b_init = tf.zeros(b_shape)
-          self[name_b_out] = tf.Variable(b_init, trainable=True, name=name_b_out)
+          self[name_b_out] = tf.Variable(b_init,
+                                         trainable=True,
+                                         name=name_b_out)
 
   def _w(self, n, suffix=""):
     return self[self._weights_str.format(n) + suffix]
@@ -82,7 +85,7 @@ class AutoEncoder(object):
   def _b(self, n, suffix=""):
     return self[self._biases_str.format(n) + suffix]
 
-  def get_variables_to_init_first(self, n):
+  def get_variables_to_init(self, n):
     assert n > 0
     assert n <= self.__num_hidden_layers + 1
 
@@ -91,17 +94,6 @@ class AutoEncoder(object):
     if n <= self.__num_hidden_layers:
       vars_to_init.append(self._b(n, "_out"))
 
-    if 1 < n <= self.__num_hidden_layers:
-      vars_to_init.append(self._w(n - 1, "_fixed"))
-      vars_to_init.append(self._b(n - 1, "_fixed"))
-
-    return vars_to_init
-
-  def get_variables_to_init_after_first(self, n):
-    assert n > 0
-    assert n <= self.__num_hidden_layers + 1
-
-    vars_to_init = []
     if 1 < n <= self.__num_hidden_layers:
       vars_to_init.append(self._w(n - 1, "_fixed"))
       vars_to_init.append(self._b(n - 1, "_fixed"))
@@ -137,165 +129,104 @@ class AutoEncoder(object):
 
   def supervised_net(self, input_pl):
     last_output = input_pl
+
     for i in xrange(self.__num_hidden_layers + 1):
+      # Fine tuning will be done on these variables
       w = self._w(i + 1)
       b = self._b(i + 1)
+
       last_output = self._activate(last_output, w, b)
+
     return last_output
-
-
-loss_summaries = {}
-
 
 def training(loss, learning_rate, loss_key=None):
   optimizer = tf.train.GradientDescentOptimizer(learning_rate)
-  #global_step = tf.Variable(0, name='global_step', trainable=False)
-  #train_op = optimizer.minimize(loss, global_step=global_step)
-  #return train_op, global_step
   train_op = optimizer.minimize(loss)
   return train_op
+
 
 def loss_x_entropy(output, target):
   with tf.name_scope("xentropy_loss"):
       net_output_tf = tf.convert_to_tensor(output, name='input')
       target_tf = tf.convert_to_tensor(target, name='target')
-      cross_entropy = tf.add(tf.multiply(tf.log(net_output_tf, name='log_output'), target_tf),
-                             tf.multiply(tf.log(1 - net_output_tf), (1 - target_tf)))
-      return -1 * tf.reduce_mean(tf.reduce_sum(cross_entropy, 1), name='xentropy_mean')
+      cross_entropy = tf.add(tf.multiply(tf.log(net_output_tf, name='log_output'),
+                                    target_tf),
+                             tf.multiply(tf.log(1 - net_output_tf),
+                                    (1 - target_tf)))
+      return -1 * tf.reduce_mean(tf.reduce_sum(cross_entropy, 1),
+                                 name='xentropy_mean')
 
 
 def main_unsupervised():
-  with tf.Graph().as_default():
+  with tf.Graph().as_default() as g:
+    sess = tf.Session()
     num_hidden = FLAGS.num_hidden_layers
-    num_gpu = FLAGS.num_GPUs
-    ae_hidden_shapes = [getattr(FLAGS, "hidden{0}_units".format(j + 1)) for j in xrange(num_hidden)]
+    ae_hidden_shapes = [getattr(FLAGS, "hidden{0}_units".format(j + 1))
+                        for j in xrange(num_hidden)]
     ae_shape = [FLAGS.image_pixels] + ae_hidden_shapes + [FLAGS.num_classes]
-    
-    sess = tf.Session(config=tf.ConfigProto(allow_soft_placement=True, log_device_placement=False))
     ae = AutoEncoder(ae_shape, sess)
-
     data = read_data_sets_pretraining(FLAGS.data_dir)
     num_train = data.train.num_examples
     learning_rates = {j: getattr(FLAGS, "pre_layer{0}_learning_rate".format(j + 1)) for j in xrange(num_hidden)}
     noise = {j: getattr(FLAGS, "noise_{0}".format(j + 1)) for j in xrange(num_hidden)}
 
-    st = time.time()
+    for i in xrange(len(ae_shape) - 2):
+      n = i + 1
+      with tf.variable_scope("pretrain"):
+        input_ = tf.placeholder(dtype=tf.float32, shape=(FLAGS.batch_size, ae_shape[0]), name='ae_input_pl')
+        target_ = tf.placeholder(dtype=tf.float32, shape=(FLAGS.batch_size, ae_shape[0]), name='ae_target_pl')
+        layer = ae.pretrain_net(input_, n)
+        with tf.name_scope("target"):
+          target_for_loss = ae.pretrain_net(target_, n, is_target=True)
 
-    for batchlayerno in xrange(int(np.ceil(num_hidden/num_gpu))):
-      for step in xrange(FLAGS.pretraining_epochs + num_gpu - 1):
-        if step<num_gpu:
-          for j in xrange(step+1):
-            n = num_gpu*batchlayerno + 1 + j
-            if n<=num_hidden:
-              if j==step:
-                vars_to_init = ae.get_variables_to_init_first(n)
-              else:
-                vars_to_init = ae.get_variables_to_init_after_first(n)
-              sess.run(tf.variables_initializer(vars_to_init))
-          with tf.variable_scope("pretrain"):
-            input_ = tf.placeholder(dtype=tf.float32, shape=(FLAGS.batch_size, ae_shape[0]), name='ae_input_pl')
-            target_ = tf.placeholder(dtype=tf.float32, shape=(FLAGS.batch_size, ae_shape[0]), name='ae_target_pl')
-            lossArray = []
-            layerArray = []
-            target_for_lossArray = []
-            train_opArray = []
-            ops_to_fetch = []
-            ops_to_run = []
-          for j in xrange(step+1):
-            with tf.device('/gpu:0'):
-              n = num_gpu*batchlayerno + 1 + j
-              if n<=num_hidden:
-                layerArray.append(ae.pretrain_net(input_, n))
-                with tf.name_scope("target"):
-                  target_for_lossArray.append(ae.pretrain_net(target_, n, is_target=True))
-                lossArray.append(loss_x_entropy(layerArray[j], target_for_lossArray[j]))
-                train_opArray.append(training(lossArray[j], learning_rates[n-1], n-1))
-                ops_to_run.append(train_opArray[j])
-                ops_to_run.append(lossArray[j])
-          print("\n\n")
-          print("| Training Step | Cross Entropy |  Layer  |   Epoch  |")
-          print("|---------------|---------------|---------|----------|")
+        loss = loss_x_entropy(layer, target_for_loss)
+        train_op = training(loss, learning_rates[i], i)
+        vars_to_init = ae.get_variables_to_init(n)
+        sess.run(tf.initialize_variables(vars_to_init))
+
+        print("\n\n")
+        print("| Training Step | Cross Entropy |  Layer  |   Epoch  |")
+        print("|---------------|---------------|---------|----------|")
+
+        for step in xrange(FLAGS.pretraining_epochs):
           for istep in xrange(int(num_train / FLAGS.batch_size)):
-            feed_dict = fill_feed_dict_ae(data.train, input_, target_, noise[0])
-            ops_to_fetch = sess.run(ops_to_run, feed_dict=feed_dict)
+            feed_dict = fill_feed_dict_ae(data.train, input_, target_, noise[i])
+            loss_summary, loss_value = sess.run([train_op, loss], feed_dict=feed_dict)
             if istep % 100 == 0:
-              for j in range(step+1):
-                n = num_gpu*batchlayerno + 1 + j
-                if n<=num_hidden:
-                  output = "| {0:>13} | {1:13.4f} | Layer {2} | Epoch {3}  |".format(istep, ops_to_fetch[2*j+1], n, step + 1 )
-                  print(output)
-        else:
-          for j in xrange(num_gpu):
-            n = num_gpu*batchlayerno + 1 + j
-            if n<=num_hidden:
-              vars_to_init = ae.get_variables_to_init_after_first(n)
-              sess.run(tf.variables_initializer(vars_to_init))
-          with tf.variable_scope("pretrain"):
-            input_ = tf.placeholder(dtype=tf.float32, shape=(FLAGS.batch_size, ae_shape[0]), name='ae_input_pl')
-            target_ = tf.placeholder(dtype=tf.float32, shape=(FLAGS.batch_size, ae_shape[0]), name='ae_target_pl')
-            lossArray = []
-            layerArray = []
-            target_for_lossArray = []
-            train_opArray = []
-            ops_to_fetch = []
-            ops_to_run = []
-            for j in xrange(num_gpu):
-              with tf.device('/gpu:0'):
-                n = num_gpu*batchlayerno + 1 + j
-                if n<=num_hidden:
-                  layerArray.append(ae.pretrain_net(input_, n))
-                  with tf.name_scope("target"):
-                    target_for_lossArray.append(ae.pretrain_net(target_, n, is_target=True))
-                  lossArray.append(loss_x_entropy(layerArray[j], target_for_lossArray[j]))
-                  train_opArray.append(training(lossArray[j], learning_rates[n-1], n-1))
-                  ops_to_run.append(train_opArray[j])
-                  ops_to_run.append(lossArray[j])
-          print("\n\n")
-          print("| Training Step | Cross Entropy |  Layer  |   Epoch  |")
-          print("|---------------|---------------|---------|----------|")
-          for istep in xrange(int(num_train / FLAGS.batch_size)):
-            feed_dict = fill_feed_dict_ae(data.train, input_, target_, noise[0])
-            ops_to_fetch = sess.run(ops_to_run, feed_dict=feed_dict)
-            if istep % 100 == 0:
-              for j in range(num_gpu):
-                n = num_gpu*batchlayerno + 1 + j
-                if n<=num_hidden:
-                  output = "| {0:>13} | {1:13.4f} | Layer {2} | Epoch {3}  |".format(istep, ops_to_fetch[2*j+1], num_gpu*batchlayerno + 1 + j, step + 1 )
-                  print(output)
-    
-    et = time.time()
-    print("TIME IS = ",int(et-st))
+              output = "| {0:>13} | {1:13.4f} | Layer {2} | Epoch {3}  |".format(istep, loss_value, n, step + 1)
+              print(output)
   return ae
 
 
 def main_supervised(ae):
   with ae.session.graph.as_default():
     sess = ae.session
-    input_pl = tf.placeholder(tf.float32, shape=(FLAGS.batch_size, FLAGS.image_pixels), name='input_pl')
+    input_pl = tf.placeholder(tf.float32, shape=(FLAGS.batch_size,
+                                                 FLAGS.image_pixels),
+                              name='input_pl')
     logits = ae.supervised_net(input_pl)
 
     data = read_data_sets(FLAGS.data_dir)
     num_train = data.train.num_examples
-    labels_placeholder = tf.placeholder(tf.int32, shape=FLAGS.batch_size, name='target_pl')
+    labels_placeholder = tf.placeholder(tf.int32,
+                                        shape=FLAGS.batch_size,
+                                        name='target_pl')
 
     loss = loss_supervised(logits, labels_placeholder)
     train_op = training(loss, FLAGS.supervised_learning_rate)
     eval_correct = evaluation(logits, labels_placeholder)
-
-    vars_to_init = ae.get_variables_to_init_first(ae.num_hidden_layers + 1)
-    #vars_to_init.append(global_step)
-    sess.run(tf.variables_initializer(vars_to_init))
+    vars_to_init = ae.get_variables_to_init(ae.num_hidden_layers + 1)
+    sess.run(tf.initialize_variables(vars_to_init))
 
     steps = FLAGS.finetuning_epochs * int(num_train/FLAGS.batch_size)
     for step in xrange(steps):
       start_time = time.time()
       feed_dict = fill_feed_dict(data.train, input_pl, labels_placeholder)
       _, loss_value = sess.run([train_op, loss], feed_dict=feed_dict)
-      duration = time.time() - start_time
 
+      duration = time.time() - start_time
       if step % 100 == 0:
         print('Step %d: loss = %.2f (%.3f sec)' % (step, loss_value, duration))
-
     do_eval(sess, eval_correct, input_pl, labels_placeholder, data.test)
 
 if __name__ == '__main__':

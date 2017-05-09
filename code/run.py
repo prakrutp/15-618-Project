@@ -34,7 +34,7 @@ def main():
   ae = autoencoder.main_unsupervised()
   endtime = time.time()
   print("Total time outer = ",int(endtime-starttime))
-  #autoencoder.main_supervised(ae)
+  autoencoder.main_supervised(ae)
 
 if __name__ == '__main__':
     main()
