@@ -11,7 +11,6 @@ from utils.flags import FLAGS
 from utils.eval import loss_supervised, evaluation, do_eval
 from utils.utils import tile_raster_images
 
-
 class AutoEncoder(object):
   _weights_str = "weights{0}"
   _biases_str = "biases{0}"
@@ -175,8 +174,9 @@ def main_unsupervised():
     learning_rates = {j: getattr(FLAGS, "pre_layer{0}_learning_rate".format(j + 1)) for j in xrange(num_hidden)}
     noise = {j: getattr(FLAGS, "noise_{0}".format(j + 1)) for j in xrange(num_hidden)}
 
-    sess = tf.Session(config=tf.ConfigProto(allow_soft_placement=True, log_device_placement=False))
+    sess = tf.Session(config=tf.ConfigProto(allow_soft_placement=False, log_device_placement=False))
     ae = AutoEncoder(ae_shape, sess)
+    train_steps = int(num_train / (FLAGS.num_GPUs*FLAGS.batch_size))
 
     for i in xrange(num_hidden):
       n = i + 1
@@ -184,9 +184,7 @@ def main_unsupervised():
       vars_to_init = ae.get_variables_to_init(n)
       sess.run(tf.initialize_variables(vars_to_init))
       tower_grads = []
-      inputArr = []
-      targetArr = []
-      losses = []
+      #losses = []
       with tf.variable_scope("pretrain"):
         input_ = tf.placeholder(dtype=tf.float32, shape=(FLAGS.batch_size*FLAGS.num_GPUs, ae_shape[0]), name='ae_input_pl')
         target_ = tf.placeholder(dtype=tf.float32, shape=(FLAGS.batch_size*FLAGS.num_GPUs, ae_shape[0]), name='ae_target_pl')
@@ -196,7 +194,8 @@ def main_unsupervised():
             with tf.name_scope("target"):
               target_for_loss = ae.pretrain_net(target_[FLAGS.batch_size*j:FLAGS.batch_size*(j+1)], n, is_target=True)
             loss = loss_x_entropy(layer, target_for_loss)
-            losses.append(loss)
+            tf.get_variable_scope().reuse_variables()
+            #losses.append(loss)
             localgrads = optimizer.compute_gradients(loss, var_list=[ae._w(n), ae._b(n)])
             tower_grads.append(localgrads)
 
@@ -204,14 +203,16 @@ def main_unsupervised():
       print("| Training Step | Cross Entropy |  Layer  |   Epoch  |")
       print("|---------------|---------------|---------|----------|")
 
+      tf.train.start_queue_runners(sess=sess)
+
       for step in xrange(FLAGS.pretraining_epochs):
-        for istep in xrange(int(num_train / (FLAGS.num_GPUs*FLAGS.batch_size))):
+        for istep in xrange(train_steps):
           feed_dict = fill_feed_dict_ae(data.train, input_, target_, noise[i])
           grads = average_gradients(tower_grads)
           train_op = optimizer.apply_gradients(grads)
-          total_loss = tf.add_n(losses, name='total_loss')
-          loss_summary, loss_value = sess.run([train_op,total_loss], feed_dict = feed_dict)
-          #loss_summary = sess.run(total_loss, feed_dict = feed_dict)
+          #total_loss = tf.add_n(losses, name='total_loss')
+          loss_summary, loss_value = sess.run([train_op,loss], feed_dict = feed_dict)
+          #loss_summary = sess.run(loss, feed_dict = feed_dict)
           if istep % 100 == 0:
             output = "| {0:>13} | {1:13.4f} | Layer {2} | Epoch {3}  |".format(istep, loss_value, n, step + 1)
             print(output)

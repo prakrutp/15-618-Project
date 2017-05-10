@@ -19,7 +19,7 @@ FLAGS = flags.FLAGS
 
 # Autoencoder Architecture Specific Flags
 flags.DEFINE_integer("num_hidden_layers", 2, "Number of hidden layers")
-flags.DEFINE_integer("num_GPUs", 1, "Number of GPUs available for pretraining")
+flags.DEFINE_integer("num_GPUs", 2, "Number of GPUs available for pretraining")
 
 flags.DEFINE_integer('image_pixels', IMAGE_PIXELS, 'Total number of pixels')
 flags.DEFINE_integer('num_classes', 10, 'Number of classes')
