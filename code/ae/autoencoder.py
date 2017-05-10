@@ -207,13 +207,13 @@ def main_unsupervised():
       for step in xrange(FLAGS.pretraining_epochs):
         for istep in xrange(int(num_train / (FLAGS.num_GPUs*FLAGS.batch_size))):
           feed_dict = fill_feed_dict_ae(data.train, input_, target_, noise[i])
-          #grads = average_gradients(tower_grads)
-          #train_op = optimizer.apply_gradients(grads)
+          grads = average_gradients(tower_grads)
+          train_op = optimizer.apply_gradients(grads)
           total_loss = tf.add_n(losses, name='total_loss')
-          #loss_summary, loss_value = sess.run([train_op,total_loss], feed_dict = feed_dict)
-          loss_summary = sess.run(total_loss, feed_dict = feed_dict)
+          loss_summary, loss_value = sess.run([train_op,total_loss], feed_dict = feed_dict)
+          #loss_summary = sess.run(total_loss, feed_dict = feed_dict)
           if istep % 100 == 0:
-            output = "| {0:>13} | {1:13.4f} | Layer {2} | Epoch {3}  |".format(istep, 0.0, n, step + 1)
+            output = "| {0:>13} | {1:13.4f} | Layer {2} | Epoch {3}  |".format(istep, loss_value, n, step + 1)
             print(output)
   return ae
 
