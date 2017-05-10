@@ -256,14 +256,14 @@ def _add_noise(x, rate):
 
 
 def fill_feed_dict_ae(data_set, input_pl, target_pl, noise=None):
-    input_feed, target_feed = data_set.next_batch(FLAGS.batch_size)
-    if noise:
-      input_feed = _add_noise(input_feed, noise)
-    feed_dict = {
-        input_pl: input_feed,
-        target_pl: target_feed
-    }
-    return feed_dict
+  input_feed, target_feed = data_set.next_batch(FLAGS.batch_size*FLAGS.num_GPUs)
+  if noise:
+    input_feed = _add_noise(input_feed, noise)
+  feed_dict = {
+    input_pl: input_feed,
+    target_pl: target_feed
+  }
+  return feed_dict
 
 
 def fill_feed_dict(data_set, images_pl, labels_pl, noise=False):

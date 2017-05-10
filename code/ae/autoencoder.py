@@ -139,12 +139,6 @@ class AutoEncoder(object):
 
     return last_output
 
-def training(loss, learning_rate, loss_key=None):
-  optimizer = tf.train.GradientDescentOptimizer(learning_rate)
-  train_op = optimizer.minimize(loss)
-  return train_op
-
-
 def loss_x_entropy(output, target):
   with tf.name_scope("xentropy_loss"):
       net_output_tf = tf.convert_to_tensor(output, name='input')
@@ -156,45 +150,71 @@ def loss_x_entropy(output, target):
       return -1 * tf.reduce_mean(tf.reduce_sum(cross_entropy, 1),
                                  name='xentropy_mean')
 
+def average_gradients(tower_grads):
+  average_grads = []
+  for grad_and_vars in zip(*tower_grads):
+    grads = []
+    for g, _ in grad_and_vars:
+      expanded_g = tf.expand_dims(g, 0)
+      grads.append(expanded_g)
+    grad = tf.concat(grads,0)
+    grad = tf.reduce_mean(grad, 0)
+    v = grad_and_vars[0][1]
+    grad_and_var = (grad, v)
+    average_grads.append(grad_and_var)
+  return average_grads
 
 def main_unsupervised():
   with tf.Graph().as_default() as g:
-    sess = tf.Session()
     num_hidden = FLAGS.num_hidden_layers
     ae_hidden_shapes = [getattr(FLAGS, "hidden{0}_units".format(j + 1))
                         for j in xrange(num_hidden)]
     ae_shape = [FLAGS.image_pixels] + ae_hidden_shapes + [FLAGS.num_classes]
-    ae = AutoEncoder(ae_shape, sess)
     data = read_data_sets_pretraining(FLAGS.data_dir)
     num_train = data.train.num_examples
     learning_rates = {j: getattr(FLAGS, "pre_layer{0}_learning_rate".format(j + 1)) for j in xrange(num_hidden)}
     noise = {j: getattr(FLAGS, "noise_{0}".format(j + 1)) for j in xrange(num_hidden)}
 
-    for i in xrange(len(ae_shape) - 2):
+    sess = tf.Session(config=tf.ConfigProto(allow_soft_placement=True, log_device_placement=False))
+    ae = AutoEncoder(ae_shape, sess)
+
+    for i in xrange(num_hidden):
       n = i + 1
+      optimizer = tf.train.GradientDescentOptimizer(learning_rates[i])
+      vars_to_init = ae.get_variables_to_init(n)
+      sess.run(tf.initialize_variables(vars_to_init))
+      tower_grads = []
+      inputArr = []
+      targetArr = []
+      losses = []
       with tf.variable_scope("pretrain"):
-        input_ = tf.placeholder(dtype=tf.float32, shape=(FLAGS.batch_size, ae_shape[0]), name='ae_input_pl')
-        target_ = tf.placeholder(dtype=tf.float32, shape=(FLAGS.batch_size, ae_shape[0]), name='ae_target_pl')
-        layer = ae.pretrain_net(input_, n)
-        with tf.name_scope("target"):
-          target_for_loss = ae.pretrain_net(target_, n, is_target=True)
+        input_ = tf.placeholder(dtype=tf.float32, shape=(FLAGS.batch_size*FLAGS.num_GPUs, ae_shape[0]), name='ae_input_pl')
+        target_ = tf.placeholder(dtype=tf.float32, shape=(FLAGS.batch_size*FLAGS.num_GPUs, ae_shape[0]), name='ae_target_pl')
+        for j in xrange(FLAGS.num_GPUs):
+          with tf.device('/gpu:0'):         
+            layer = ae.pretrain_net(input_[FLAGS.batch_size*j:FLAGS.batch_size*(j+1)], n)
+            with tf.name_scope("target"):
+              target_for_loss = ae.pretrain_net(target_[FLAGS.batch_size*j:FLAGS.batch_size*(j+1)], n, is_target=True)
+            loss = loss_x_entropy(layer, target_for_loss)
+            losses.append(loss)
+            localgrads = optimizer.compute_gradients(loss, var_list=[ae._w(n), ae._b(n)])
+            tower_grads.append(localgrads)
 
-        loss = loss_x_entropy(layer, target_for_loss)
-        train_op = training(loss, learning_rates[i], i)
-        vars_to_init = ae.get_variables_to_init(n)
-        sess.run(tf.initialize_variables(vars_to_init))
+      print("\n\n")
+      print("| Training Step | Cross Entropy |  Layer  |   Epoch  |")
+      print("|---------------|---------------|---------|----------|")
 
-        print("\n\n")
-        print("| Training Step | Cross Entropy |  Layer  |   Epoch  |")
-        print("|---------------|---------------|---------|----------|")
-
-        for step in xrange(FLAGS.pretraining_epochs):
-          for istep in xrange(int(num_train / FLAGS.batch_size)):
-            feed_dict = fill_feed_dict_ae(data.train, input_, target_, noise[i])
-            loss_summary, loss_value = sess.run([train_op, loss], feed_dict=feed_dict)
-            if istep % 100 == 0:
-              output = "| {0:>13} | {1:13.4f} | Layer {2} | Epoch {3}  |".format(istep, loss_value, n, step + 1)
-              print(output)
+      for step in xrange(FLAGS.pretraining_epochs):
+        for istep in xrange(int(num_train / (FLAGS.num_GPUs*FLAGS.batch_size))):
+          feed_dict = fill_feed_dict_ae(data.train, input_, target_, noise[i])
+          #grads = average_gradients(tower_grads)
+          #train_op = optimizer.apply_gradients(grads)
+          total_loss = tf.add_n(losses, name='total_loss')
+          #loss_summary, loss_value = sess.run([train_op,total_loss], feed_dict = feed_dict)
+          loss_summary = sess.run(total_loss, feed_dict = feed_dict)
+          if istep % 100 == 0:
+            output = "| {0:>13} | {1:13.4f} | Layer {2} | Epoch {3}  |".format(istep, 0.0, n, step + 1)
+            print(output)
   return ae
 
 
