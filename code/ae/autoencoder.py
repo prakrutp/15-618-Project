@@ -189,15 +189,20 @@ def main_unsupervised():
         #Every epoch, initialize variables to fixed random or fixed prev trained values
         if step==0:
           vars_to_init = ae.get_variables_to_init_first(n)
+          #starttime = int(round(time.time() * 1000))
           sess.run(tf.variables_initializer(vars_to_init))
+          #endtime = int(round(time.time() * 1000))
+          #print('Variable initialization time: ', int(endtime-starttime))
         else:
           vars_to_init = ae.get_variables_to_init_after_first(n)
+          #starttime = int(round(time.time() * 1000))
           sess.run(tf.variables_initializer(vars_to_init))
+          #endtime = int(round(time.time() * 1000))
+          #print('Variable initialization time: ', int(endtime-starttime))
         with tf.variable_scope("pretrain_{0}".format(n)):
           input_ = tf.placeholder(dtype=tf.float32, shape=(FLAGS.batch_size, ae_shape[0]), name='ae_input_pl')
           target_ = tf.placeholder(dtype=tf.float32, shape=(FLAGS.batch_size, ae_shape[0]), name='ae_target_pl')
           layer = ae.pretrain_net(input_, n)
-
           with tf.name_scope("target"):
             target_for_loss = ae.pretrain_net(target_, n, is_target=True)
 
@@ -209,12 +214,17 @@ def main_unsupervised():
           #print("| Training Step | Cross Entropy |  Layer  |   Epoch  |")
           #print("|---------------|---------------|---------|----------|")
 
+          feed_dict = fill_feed_dict_ae(data.train, input_, target_, noise[i])
+          #starttime = int(round(time.time() * 1000))
           for istep in xrange(int(num_train / FLAGS.batch_size)):
-            feed_dict = fill_feed_dict_ae(data.train, input_, target_, noise[i])
-            loss_summary, loss_value = sess.run([train_op, loss], feed_dict=feed_dict)
+            #feed_dict = fill_feed_dict_ae(data.train, input_, target_, noise[i])
+            loss_summary, loss_value = sess.run([train_op,loss], feed_dict=feed_dict)
+            #loss_value = sess.run(train_op, feed_dict=feed_dict)
             #if istep % 100 == 0:
             #  output = "| {0:>13} | {1:13.4f} | Layer {2} | Epoch {3}  |".format(istep, loss_value, n, step + 1 )
             #  print(output)
+          #endtime = int(round(time.time() * 1000))
+          #print('Compting gradient: ', int(endtime-starttime))
   return ae
 
 

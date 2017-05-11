@@ -18,7 +18,7 @@ flags = tf.app.flags
 FLAGS = flags.FLAGS
 
 # Autoencoder Architecture Specific Flags
-flags.DEFINE_integer("num_hidden_layers", 4, "Number of hidden layers")
+flags.DEFINE_integer("num_hidden_layers", 1, "Number of hidden layers")
 flags.DEFINE_integer('hidden1_units', 2000, 'Number of units in hidden layer 1.')
 flags.DEFINE_integer('hidden2_units', 1000, 'Number of units in hidden layer 2.')
 flags.DEFINE_integer('hidden3_units', 500, 'Number of units in hidden layer 3.')
@@ -44,7 +44,7 @@ flags.DEFINE_integer('batch_size', 100, 'Batch size. Must divide evenly into the
 
 flags.DEFINE_float('supervised_learning_rate', 0.1, 'Supervised initial learning rate.')
 
-flags.DEFINE_integer('pretraining_epochs', 50, "Number of training epochs for pretraining layers")
+flags.DEFINE_integer('pretraining_epochs', 1, "Number of training epochs for pretraining layers")
 flags.DEFINE_integer('finetuning_epochs', 10, "Number of training epochs for fine tuning supervised step")
 
 flags.DEFINE_float('zero_bound', 1.0e-9, 'Value to use as buffer to avoid numerical issues at 0')
