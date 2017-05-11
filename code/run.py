@@ -30,11 +30,11 @@ def main():
   os.mkdir(os.path.join(_chkpt_dir, 'fine_tuning'))
 
   #start()
-  starttime = time.time()
+  starttime = int(round(time.time() * 1000))
   ae = autoencoder.main_unsupervised()
-  endtime = time.time()
+  endtime = int(round(time.time() * 1000))
   print("Total time outer = ",int(endtime-starttime))
-  autoencoder.main_supervised(ae)
+  #autoencoder.main_supervised(ae)
 
 if __name__ == '__main__':
     main()

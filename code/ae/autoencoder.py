@@ -184,17 +184,17 @@ def main_unsupervised():
         vars_to_init = ae.get_variables_to_init(n)
         sess.run(tf.initialize_variables(vars_to_init))
 
-        print("\n\n")
-        print("| Training Step | Cross Entropy |  Layer  |   Epoch  |")
-        print("|---------------|---------------|---------|----------|")
+        #print("\n\n")
+        #print("| Training Step | Cross Entropy |  Layer  |   Epoch  |")
+        #print("|---------------|---------------|---------|----------|")
 
         for step in xrange(FLAGS.pretraining_epochs):
           for istep in xrange(int(num_train / FLAGS.batch_size)):
             feed_dict = fill_feed_dict_ae(data.train, input_, target_, noise[i])
             loss_summary, loss_value = sess.run([train_op, loss], feed_dict=feed_dict)
-            if istep % 100 == 0:
-              output = "| {0:>13} | {1:13.4f} | Layer {2} | Epoch {3}  |".format(istep, loss_value, n, step + 1)
-              print(output)
+            #if istep % 100 == 0:
+            #  output = "| {0:>13} | {1:13.4f} | Layer {2} | Epoch {3}  |".format(istep, loss_value, n, step + 1)
+            #  print(output)
   return ae
 
 
