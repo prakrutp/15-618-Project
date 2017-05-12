@@ -177,12 +177,17 @@ def main_unsupervised():
     sess = tf.Session(config=tf.ConfigProto(allow_soft_placement=False, log_device_placement=False))
     ae = AutoEncoder(ae_shape, sess)
     train_steps = int(num_train / (FLAGS.num_GPUs*FLAGS.batch_size))
+    print('Train steps: ',train_steps)
 
     for i in xrange(num_hidden):
       n = i + 1
       optimizer = tf.train.GradientDescentOptimizer(learning_rates[i])
+      
       vars_to_init = ae.get_variables_to_init(n)
+      starttime = int(round(time.time() * 1000))
       sess.run(tf.initialize_variables(vars_to_init))
+      endtime = int(round(time.time() * 1000))
+      print('Initializing time: ', endtime-starttime)
       tower_grads = []
       #losses = []
       with tf.variable_scope("pretrain"):
@@ -206,16 +211,20 @@ def main_unsupervised():
       tf.train.start_queue_runners(sess=sess)
 
       for step in xrange(FLAGS.pretraining_epochs):
+        totaltime = 0
         for istep in xrange(train_steps):
           feed_dict = fill_feed_dict_ae(data.train, input_, target_, noise[i])
           grads = average_gradients(tower_grads)
           train_op = optimizer.apply_gradients(grads)
-          #total_loss = tf.add_n(losses, name='total_loss')
-          loss_summary, loss_value = sess.run([train_op,loss], feed_dict = feed_dict)
-          #loss_summary = sess.run(loss, feed_dict = feed_dict)
+          #loss_summary, loss_value = sess.run([train_op,loss], feed_dict = feed_dict)
+          starttime = int(round(time.time() * 1000))
+          loss_value = sess.run(loss, feed_dict = feed_dict)
+          endtime = int(round(time.time() * 1000))
+          totaltime += (endtime-starttime)
           if istep % 100 == 0:
             output = "| {0:>13} | {1:13.4f} | Layer {2} | Epoch {3}  |".format(istep, loss_value, n, step + 1)
             print(output)
+        print('Time to compute loss: ',totaltime)
   return ae
 
 
